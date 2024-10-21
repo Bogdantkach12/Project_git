@@ -5,6 +5,44 @@
     <title>Home</title>
 </head>
 <body>
-    <a href="/">dskjfsdkj</a>
+    <form id="form">
+        <h2>Name:</h2>
+        <input name="name" type="text">
+        <h2>Email:</h2>
+        <input name="email" type="text">
+        <h2>Response:</h2>
+        <textarea name="response" id=""></textarea>
+        <button>Send</button>
+    </form>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('form').addEventListener('submit', (event) => {
+                event.preventDefault(); // Предотвращает стандартное действие формы
+                
+                // Создаем новый объект FormData для отправки данных формы
+                const formData = new FormData(document.getElementById('form'));
+    
+                // Отправляем данные формы с помощью Fetch API
+                fetch('/', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Если ответ от сервера успешный, скрываем первый div и показываем второй
+                        document.getElementById('form').style.display = 'none';
+                    } else {
+                        // Если возникла ошибка, сообщаем пользователю
+                        alert('Ошибка при отправке данных');
+                    }
+                })
+                .catch(error => {
+                    // Если возникла ошибка при выполнении запроса
+                    console.error('Ошибка:', error);
+                    alert('Ошибка при отправке данных');
+                });
+            });
+        });
+    </script>
 </body>
 </html>
